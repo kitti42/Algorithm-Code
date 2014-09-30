@@ -1,0 +1,42 @@
+
+#include<stdio.h>
+#include<conio.h>
+#define MAX 800004
+#define MOD 1000000007
+long long power(long long n,int m);
+long long int fact[MAX],ifact[MAX];
+//-----------------------------------------------------------------------------
+
+void preProcess()
+{
+	fact[0]=1;
+	ifact[0]=1;
+	int i;
+	for(i=1;i<MAX;i++)
+	{
+		fact[i]=fact[i-1]*i;
+		fact[i]%=MOD;
+		ifact[i] = (power(fact[i],MOD-2))%MOD;
+		}
+}
+//-----------------------------------------------------------------------------
+
+long long int comb(int a,int b)
+{
+	return (((fact[a]*ifact[b])%MOD)*ifact[a-b])%MOD;
+}
+//-----------------------------------------------------------------------------
+
+long long power(long long n,int m)
+{
+		
+    if(m==0) return 1;
+    
+    long long x=power(n,m/2);
+    if(m%2==0) 
+               return (x*x)%MOD;
+    else
+               return (((x*x)%MOD)*n)%MOD;
+}
+//-----------------------------------------------------------------------------
+	
